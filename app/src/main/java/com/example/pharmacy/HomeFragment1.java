@@ -1,8 +1,10 @@
 package com.example.pharmacy;
 
 
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,6 +15,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,15 +38,30 @@ public class HomeFragment1 extends Fragment {
 
     private RecyclerView categoryRecyclerView;
     private CategoryAdapter categoryAdapter;
-
+    ////////////////Banner part
     private ViewPager bannerSliderViewPager;
     private List<SliderModel> sliderModelList;
     private int currentPage=2;
-
     private Timer timer;
-
     final private long DELAY_TIME=3000;
     final private long PERIOD_TIME=3000;
+
+    /////////Banner Part
+
+
+    //Strip Part
+
+         private ImageView stripAdImage;
+         private ConstraintLayout stripAdContainer;
+    //Strip Part
+
+    //Horizontal Product Layout
+
+        private TextView horizontalLayoutTitle;
+        private Button horizontalLayoutViewAllButton;
+        private RecyclerView horizontalRecyclerView;
+    //Horizontal Product Layout
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -71,27 +92,29 @@ public class HomeFragment1 extends Fragment {
         categoryAdapter.notifyDataSetChanged();
 
 
-
+////////////////////banner slider
         bannerSliderViewPager=view.findViewById(R.id.banner_slider_view_pager);
         sliderModelList=new ArrayList<SliderModel>();
 
-        sliderModelList.add(new SliderModel(R.drawable.ic_menu_gallery));
-        sliderModelList.add(new SliderModel(R.drawable.ic_menu_send));
+        sliderModelList.add(new SliderModel(R.drawable.ic_menu_gallery,"#077EA4"));
+        sliderModelList.add(new SliderModel(R.drawable.ic_menu_send,"#077EA4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077EA4"));
 
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.ic_add_circle_outline_blue_24dp));
-        sliderModelList.add(new SliderModel(R.drawable.ic_menu_camera));
-        sliderModelList.add(new SliderModel(R.drawable.logo));
-        sliderModelList.add(new SliderModel(R.drawable.ic_menu_gallery));
-        sliderModelList.add(new SliderModel(R.drawable.ic_menu_send));
+        sliderModelList.add(new SliderModel(R.drawable.ic_add_circle_outline_blue_24dp,"#077EA4"));
+        sliderModelList.add(new SliderModel(R.drawable.ic_menu_camera,"#077EA4"));
+        sliderModelList.add(new SliderModel(R.drawable.logo,"#077EA4"));
+        sliderModelList.add(new SliderModel(R.drawable.ic_menu_gallery,"#077EA4"));
 
-        sliderModelList.add(new SliderModel(R.drawable.banner));
-        sliderModelList.add(new SliderModel(R.drawable.ic_add_circle_outline_blue_24dp));
+        sliderModelList.add(new SliderModel(R.drawable.ic_menu_send,"#077EA4"));
+        sliderModelList.add(new SliderModel(R.drawable.banner,"#077EA4"));
+        sliderModelList.add(new SliderModel(R.drawable.ic_add_circle_outline_blue_24dp,"#077EA4"));
 
         SliderAdapter sliderAdapter=new SliderAdapter(sliderModelList);
         bannerSliderViewPager.setAdapter(sliderAdapter);
         bannerSliderViewPager.setClipToPadding(false);
         bannerSliderViewPager.setPageMargin(20);
+
+        bannerSliderViewPager.setCurrentItem(currentPage);
 
         ViewPager.OnPageChangeListener onPageChangeListener=new ViewPager.OnPageChangeListener() {
             @Override
@@ -128,7 +151,87 @@ public class HomeFragment1 extends Fragment {
             }
         });
 
+//Banner Slider
 
+
+        //Strip Part
+
+        stripAdImage=view.findViewById(R.id.strip_ad_image);
+        stripAdContainer=view.findViewById(R.id.strip_ad_container);
+
+        stripAdImage.setImageResource(R.drawable.banner);
+         stripAdContainer.setBackgroundColor(Color.parseColor("#000000"));
+
+        //Strip Part
+
+
+
+        //Horizontal Layout
+
+        horizontalLayoutTitle=view.findViewById(R.id.horizontal_scroll_layout_title);
+        horizontalLayoutViewAllButton=view.findViewById(R.id.horizontal_scroll_view_all_button);
+        horizontalRecyclerView=view.findViewById(R.id.horizontal_scroll_layout_recyclerview);
+
+        List<HorizontalProductScrollModel> horizontalProductScrollModelList=new ArrayList<>();
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.panadol,"Panadol ","500mg Film-Coated Tablets" ,"Rs. 120"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.banner,"Panadol ","500mg" ,"Rs.120"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.ic_home_blue_24dp,"Panadol ","500mg" ,"Rs.120"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.panadol,"Panadol ","500mg" ,"Rs.120"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.panadol,"Panadol ","500mg" ,"Rs.120"));
+        horizontalProductScrollModelList.add(new HorizontalProductScrollModel(R.drawable.panadol,"Panadol ","500mg" ,"Rs.120"));
+
+
+
+
+
+        HorizontalProductScrollAdapter horizontalProductScrollAdapter=new HorizontalProductScrollAdapter(horizontalProductScrollModelList);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        horizontalRecyclerView.setLayoutManager(linearLayoutManager);
+
+        horizontalRecyclerView.setAdapter(horizontalProductScrollAdapter);
+        horizontalProductScrollAdapter.notifyDataSetChanged();
+        //Horizontal Layout
+
+
+        /////////////Grid View
+
+            TextView gridLayoutTitle=view.findViewById(R.id.grid_product_layout_title);
+            Button gridLayoutViewAllButton=view.findViewById(R.id.grid_product_layout_view_all_button);
+            GridView gridView=view.findViewById(R.id.grid_product_layout_gridview);
+
+            gridView.setAdapter(new GridProductLayoutAdapter(horizontalProductScrollModelList));
+
+
+
+        /////////////Grid View
+
+
+        ////////////Testing
+
+        RecyclerView testing =view.findViewById(R.id.testing);
+        LinearLayoutManager testingLayoutManager= new LinearLayoutManager(getContext());
+        testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        testing.setLayoutManager(testingLayoutManager);
+
+        List<HomePageModel>homePageModelList=new ArrayList<>();
+        homePageModelList.add(new HomePageModel(0,sliderModelList));
+        homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#000000"));
+        homePageModelList.add(new HomePageModel(0,sliderModelList));
+        homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#ff0000"));
+        homePageModelList.add(new HomePageModel(0,sliderModelList));
+        homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#000ff00"));
+
+
+
+
+
+        HomePageAdapter adapter=new HomePageAdapter(homePageModelList);
+        testing.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+
+        ////////////Testing
         return view;
     }
 
