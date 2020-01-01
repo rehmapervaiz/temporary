@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayShowTitleEnabled(false); /*basically title jo likha how ata hai applicaton ka wo remove kiya hai */
 
         //FloatingActionButton fab = findViewById(R.id.fab);

@@ -1,78 +1,35 @@
 package com.example.pharmacy;
 
-
-import android.graphics.Color;
-import android.os.Bundle;
-
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.fragment.app.Fragment;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
 
-import android.os.Handler;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.GridView;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
+public class CategoryActivity extends AppCompatActivity {
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class HomeFragment1 extends Fragment {
-
-
-    public HomeFragment1() {
-        // Required empty public constructor
-    }
-
-    private RecyclerView testing;
     private RecyclerView categoryRecyclerView;
-    private CategoryAdapter categoryAdapter;
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_category);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        String title = getIntent().getStringExtra("CategoryName");
+        getSupportActionBar().setTitle(title);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Inflate the layout for this fragment
-        View view= inflater.inflate(R.layout.fragment_home_fragment1, container, false);
+        categoryRecyclerView=findViewById(R.id.category_recyclerview);
 
-        categoryRecyclerView=view.findViewById(R.id.category_recyclerview);
-
-        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity());
-        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        categoryRecyclerView.setLayoutManager(layoutManager);
-
-
-        final List<CategoryModel>categoryModelList=new ArrayList<CategoryModel>();
-        categoryModelList.add(new CategoryModel("link","Home"));
-        categoryModelList.add(new CategoryModel("link","Home1"));
-        categoryModelList.add(new CategoryModel("link","Home2"));
-        categoryModelList.add(new CategoryModel("link","Home3"));
-        categoryModelList.add(new CategoryModel("link","Home4"));
-        categoryModelList.add(new CategoryModel("link","Home5"));
-        categoryModelList.add(new CategoryModel("link","Home6"));
-        categoryModelList.add(new CategoryModel("link","Home7"));
-
-        categoryAdapter= new CategoryAdapter(categoryModelList,getContext());
-        categoryRecyclerView.setAdapter(categoryAdapter);
-        categoryAdapter.notifyDataSetChanged();
-
-
-////////////////////banner slider
-         List<SliderModel>sliderModelList=new ArrayList<SliderModel>();
+    ////////////////////banner slider
+        List<SliderModel>sliderModelList=new ArrayList<>();
 
         sliderModelList.add(new SliderModel(R.drawable.ic_menu_gallery,"#077EA4"));
         sliderModelList.add(new SliderModel(R.drawable.ic_menu_send,"#077EA4"));
@@ -89,7 +46,7 @@ public class HomeFragment1 extends Fragment {
 
 
 
-///////////////////Banner Slider
+//Banner Slider
 
 
         //Strip Part
@@ -120,10 +77,10 @@ public class HomeFragment1 extends Fragment {
 
         ////////////Testing
 
-         testing =view.findViewById(R.id.home_page_recyclerview);
-        LinearLayoutManager testingLayoutManager= new LinearLayoutManager(getContext());
+
+        LinearLayoutManager testingLayoutManager= new LinearLayoutManager(this);
         testingLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        testing.setLayoutManager(testingLayoutManager);
+        categoryRecyclerView.setLayoutManager(testingLayoutManager);
 
         List<HomePageModel>homePageModelList=new ArrayList<>();
         homePageModelList.add(new HomePageModel(0,sliderModelList));
@@ -132,7 +89,6 @@ public class HomeFragment1 extends Fragment {
         homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
         homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
         homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#ff0000"));
-
         homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#000ff00"));
 
 
@@ -140,13 +96,31 @@ public class HomeFragment1 extends Fragment {
 
 
         HomePageAdapter adapter=new HomePageAdapter(homePageModelList);
-        testing.setAdapter(adapter);
+        categoryRecyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
 
         ////////////Testing
-        return view;
+
+
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.search_icon, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        //Handle action bar items here those are search icon, cart icon, notification icon
+        int id = item.getItemId();
+
+        if (id == R.id.main_search_icon) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
