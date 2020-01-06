@@ -2,5 +2,6 @@
 <resources>
     <color name="colorPrimary">#173c59</color>
     <color name="colorAccent">#FFFFFF</color>
+    <color name="successGreen">#4CB450</color>
 
 </resources>

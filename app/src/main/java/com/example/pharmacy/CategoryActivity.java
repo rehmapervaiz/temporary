@@ -89,7 +89,7 @@ public class CategoryActivity extends AppCompatActivity {
         homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
         homePageModelList.add(new HomePageModel(3,"Deals of the Day",horizontalProductScrollModelList));
         homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#ff0000"));
-        homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#000ff00"));
+        homePageModelList.add(new HomePageModel(1,R.drawable.banner,"#000ff0"));
 
 
 
